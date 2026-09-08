@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My To-Do List</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+
+    <header>
+
+        <div class="logo">
+            ✓
+        </div>
+
+        <div>
+            <h1>My To-Do List</h1>
+
+            <p>
+                Stay organized. Stay productive.
+            </p>
+        </div>
+
+    </header>
+
+
+    <!-- STATISTICS -->
+
+    <div class="stats">
+
+        <div class="stat">
+            <strong>{{ total }}</strong>
+            <span>Total</span>
+        </div>
+
+        <div class="stat pending">
+            <strong>{{ pending }}</strong>
+            <span>Pending</span>
+        </div>
+
+        <div class="stat completed">
+            <strong>{{ completed }}</strong>
+            <span>Completed</span>
+        </div>
+
+    </div>
+
+
+    <!-- ADD TASK -->
+
+    <div class="card">
+
+        <form
+            action="{{ url_for('add_task') }}"
+            method="POST"
+            class="add-form"
+        >
+
+            <input
+                type="text"
+                name="title"
+                placeholder="What do you need to do?"
+                maxlength="500"
+                required
+            >
+
+            <button type="submit">
+                + Add Task
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- SEARCH -->
+
+    <div class="search-box">
+
+        <form
+            action="{{ url_for('search') }}"
+            method="GET"
+        >
+
+            <input
+                type="text"
+                name="q"
+                value="{{ search|default('') }}"
+                placeholder="🔍 Search tasks..."
+            >
+
+            <button type="submit">
+                Search
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- TASK LIST -->
+
+    <div class="tasks">
+
+        {% if tasks %}
+
+            {% for task in tasks %}
+
+            <div
+                class="task {% if task.completed %}completed-task{% endif %}"
+            >
+
+                <div class="task-left">
+
+                    <form
+                        action="{{ url_for('toggle_task', task_id=task.id) }}"
+                        method="POST"
+                    >
+
+                        <button
+                            type="submit"
+                            class="check-button"
+                            title="Complete task"
+                        >
+
+                            {% if task.completed %}
+                                ✓
+                            {% else %}
+                                ○
+                            {% endif %}
+
+                        </button>
+
+                    </form>
+
+
+                    <div class="task-title">
+
+                        {% if task.completed %}
+
+                            <span class="done">
+                                {{ task.title }}
+                            </span>
+
+                        {% else %}
+
+                            <span>
+                                {{ task.title }}
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+                <div class="actions">
+
+                    <!-- EDIT -->
+
+                    <button
+                        class="edit-button"
+                        onclick="editTask(
+                            {{ task.id }},
+                            {{ task.title|tojson }}
+                        )"
+                    >
+                        ✏️
+                    </button>
+
+
+                    <!-- DELETE -->
+
+                    <form
+                        action="{{ url_for('delete_task', task_id=task.id) }}"
+                        method="POST"
+                        onsubmit="return confirm('Delete this task?');"
+                    >
+
+                        <button
+                            type="submit"
+                            class="delete-button"
+                        >
+                            🗑️
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    📝
+                </div>
+
+                <h2>No tasks yet</h2>
+
+                <p>
+                    Add your first task above and start being productive!
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            Built with ❤️ using Python & Flask
+        </p>
+
+    </footer>
+
+</div>
+
+
+<!-- EDIT MODAL -->
+
+<div
+    id="editModal"
+    class="modal"
+>
+
+    <div class="modal-content">
+
+        <h2>Edit Task</h2>
+
+        <form
+            id="editForm"
+            method="POST"
+        >
+
+            <input
+                id="editInput"
+                type="text"
+                name="title"
+                maxlength="500"
+                required
+            >
+
+            <div class="modal-buttons">
+
+                <button
+                    type="button"
+                    onclick="closeModal()"
+                    class="cancel-button"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="save-button"
+                >
+                    Save
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function editTask(id, title) {
+
+    const modal = document.getElementById("editModal");
+    const input = document.getElementById("editInput");
+    const form = document.getElementById("editForm");
+
+    input.value = title;
+
+    form.action = "/edit/" + id;
+
+    modal.classList.add("show");
+
+    input.focus();
+}
+
+
+function closeModal() {
+
+    document
+        .getElementById("editModal")
+        .classList.remove("show");
+
+}
+
+
+window.onclick = function(event) {
+
+    const modal = document.getElementById("editModal");
+
+    if (event.target === modal) {
+
+        closeModal();
+
+    }
+
+}
+
+</script>
+
+</body>
+
+</html>
