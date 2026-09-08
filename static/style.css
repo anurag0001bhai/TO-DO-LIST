@@ -1,0 +1,566 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    background:
+        linear-gradient(
+            135deg,
+            #667eea 0%,
+            #764ba2 100%
+        );
+
+    min-height: 100vh;
+
+    color: #1f2937;
+
+    padding: 40px 20px;
+}
+
+
+.container {
+    width: 100%;
+    max-width: 900px;
+
+    margin: auto;
+}
+
+
+/* HEADER */
+
+header {
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    color: white;
+
+    margin-bottom: 30px;
+}
+
+
+.logo {
+    width: 60px;
+    height: 60px;
+
+    background: white;
+
+    color: #667eea;
+
+    border-radius: 18px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 32px;
+    font-weight: bold;
+
+    box-shadow:
+        0 10px 30px
+        rgba(0, 0, 0, 0.15);
+}
+
+
+header h1 {
+    font-size: 34px;
+
+    margin-bottom: 5px;
+}
+
+
+header p {
+    opacity: 0.9;
+
+    font-size: 15px;
+}
+
+
+/* STATISTICS */
+
+.stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 15px;
+
+    margin-bottom: 20px;
+}
+
+
+.stat {
+    background: white;
+
+    border-radius: 16px;
+
+    padding: 20px;
+
+    text-align: center;
+
+    box-shadow:
+        0 10px 30px
+        rgba(0, 0, 0, 0.12);
+}
+
+
+.stat strong {
+    display: block;
+
+    font-size: 30px;
+
+    color: #667eea;
+}
+
+
+.stat span {
+    color: #6b7280;
+
+    font-size: 14px;
+}
+
+
+.stat.pending strong {
+    color: #f59e0b;
+}
+
+
+.stat.completed strong {
+    color: #10b981;
+}
+
+
+/* CARD */
+
+.card {
+    background: white;
+
+    padding: 20px;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 10px 30px
+        rgba(0, 0, 0, 0.12);
+
+    margin-bottom: 15px;
+}
+
+
+.add-form {
+    display: flex;
+
+    gap: 10px;
+}
+
+
+input {
+    flex: 1;
+
+    border: 2px solid #e5e7eb;
+
+    border-radius: 10px;
+
+    padding: 13px 15px;
+
+    font-size: 16px;
+
+    outline: none;
+
+    transition: 0.2s;
+}
+
+
+input:focus {
+    border-color: #667eea;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(102, 126, 234, 0.12);
+}
+
+
+button {
+    border: none;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    transition: 0.2s;
+}
+
+
+.add-form button {
+    background: #667eea;
+
+    color: white;
+
+    padding: 0 25px;
+
+    border-radius: 10px;
+
+    font-weight: 600;
+}
+
+
+.add-form button:hover {
+    background: #5568d9;
+
+    transform: translateY(-1px);
+}
+
+
+/* SEARCH */
+
+.search-box {
+    margin-bottom: 15px;
+}
+
+
+.search-box form {
+    display: flex;
+
+    gap: 10px;
+}
+
+
+.search-box button {
+    background: #374151;
+
+    color: white;
+
+    padding: 0 20px;
+
+    border-radius: 10px;
+}
+
+
+/* TASKS */
+
+.tasks {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+
+.task {
+    background: white;
+
+    border-radius: 14px;
+
+    padding: 16px 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    box-shadow:
+        0 5px 20px
+        rgba(0, 0, 0, 0.08);
+
+    transition: 0.2s;
+}
+
+
+.task:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 25px
+        rgba(0, 0, 0, 0.12);
+}
+
+
+.task-left {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    min-width: 0;
+}
+
+
+.check-button {
+    width: 32px;
+    height: 32px;
+
+    border-radius: 50%;
+
+    background: #f3f4f6;
+
+    color: #667eea;
+
+    font-size: 18px;
+}
+
+
+.check-button:hover {
+    background: #667eea;
+
+    color: white;
+}
+
+
+.task-title {
+    font-size: 16px;
+
+    word-break: break-word;
+}
+
+
+.done {
+    text-decoration: line-through;
+
+    color: #9ca3af;
+}
+
+
+.completed-task {
+    opacity: 0.8;
+}
+
+
+/* ACTIONS */
+
+.actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+
+.actions form {
+    display: flex;
+}
+
+
+.edit-button,
+.delete-button {
+    width: 36px;
+    height: 36px;
+
+    border-radius: 9px;
+
+    background: #f3f4f6;
+}
+
+
+.edit-button:hover {
+    background: #e0e7ff;
+}
+
+
+.delete-button:hover {
+    background: #fee2e2;
+}
+
+
+/* EMPTY */
+
+.empty {
+    background: white;
+
+    text-align: center;
+
+    padding: 60px 20px;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 10px 30px
+        rgba(0, 0, 0, 0.1);
+}
+
+
+.empty-icon {
+    font-size: 55px;
+
+    margin-bottom: 15px;
+}
+
+
+.empty h2 {
+    margin-bottom: 8px;
+}
+
+
+.empty p {
+    color: #6b7280;
+}
+
+
+/* FOOTER */
+
+footer {
+    text-align: center;
+
+    color: white;
+
+    margin-top: 30px;
+
+    opacity: 0.85;
+
+    font-size: 14px;
+}
+
+
+/* MODAL */
+
+.modal {
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    background:
+        rgba(0, 0, 0, 0.55);
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    z-index: 100;
+}
+
+
+.modal.show {
+    display: flex;
+}
+
+
+.modal-content {
+    background: white;
+
+    width: 100%;
+
+    max-width: 450px;
+
+    padding: 25px;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 20px 60px
+        rgba(0, 0, 0, 0.25);
+}
+
+
+.modal-content h2 {
+    margin-bottom: 20px;
+}
+
+
+.modal-buttons {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 15px;
+}
+
+
+.cancel-button,
+.save-button {
+    padding: 11px 20px;
+
+    border-radius: 9px;
+}
+
+
+.cancel-button {
+    background: #e5e7eb;
+}
+
+
+.save-button {
+    background: #667eea;
+
+    color: white;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 20px 12px;
+    }
+
+
+    header h1 {
+        font-size: 26px;
+    }
+
+
+    .stats {
+        gap: 8px;
+    }
+
+
+    .stat {
+        padding: 15px 8px;
+    }
+
+
+    .stat strong {
+        font-size: 23px;
+    }
+
+
+    .add-form {
+        flex-direction: column;
+    }
+
+
+    .add-form button {
+        padding: 13px;
+    }
+
+
+    .search-box form {
+        flex-direction: column;
+    }
+
+
+    .search-box button {
+        padding: 13px;
+    }
+
+
+    .task {
+        padding: 13px;
+    }
+
+}
